@@ -1,0 +1,30 @@
+{
+  "generated": "2026-06-07T00:00:00.000Z",
+  "sections": [
+    {
+      "id": "mockups",
+      "label": "Mockups",
+      "groups": [
+        {
+          "slug": "todo-direction-compare",
+          "files": [
+            { "label": "A · 极简工具", "path": "mockups/todo-direction-compare/A-极简工具.html" },
+            { "label": "B · 温暖人性", "path": "mockups/todo-direction-compare/B-温暖人性.html" },
+            { "label": "D · 活泼轻快", "path": "mockups/todo-direction-compare/D-活泼轻快.html" },
+            { "label": "A+D · 简约活力", "path": "mockups/todo-direction-compare/AD-混合.html" },
+            { "label": "Tab 设计探索", "path": "mockups/todo-direction-compare/Tab设计探索.html" },
+            { "label": "★ 完整预览 · 看板+记录", "path": "mockups/todo-direction-compare/完整预览-看板+记录.html" },
+            { "label": "应用图标方案", "path": "mockups/todo-direction-compare/应用图标方案.html" },
+            { "label": "图标细化 · A1+B2 融合", "path": "mockups/todo-direction-compare/图标细化-A1+B2融合.html" },
+            { "label": "最终图标预览", "path": "mockups/todo-direction-compare/最终图标预览.html" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "design-systems",
+      "label": "Design Systems",
+      "groups": []
+    }
+  ]
+}

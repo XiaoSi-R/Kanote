@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A · 极简工具</title>
+<style>
+  :root {
+    --bg: #fafafa;
+    --surface: #fff;
+    --surface2: #f5f5f5;
+    --border: #e5e5e5;
+    --text: #1a1a1a;
+    --text2: #666;
+    --text3: #999;
+    --accent: #5b6af0;
+    --green: #22c55e;
+    --orange: #f59e0b;
+    --radius: 8px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04);
+    --font: 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font); background:var(--bg); color:var(--text); padding:32px 40px; }
+  h2 { font-size:15px; font-weight:500; color:var(--text2); letter-spacing:.02em; margin-bottom:20px; text-transform:uppercase; }
+
+  .preview { display:flex; gap:24px; max-width:900px; }
+  .col { flex:1; display:flex; flex-direction:column; gap:12px; }
+  .col-header {
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; font-weight:500; color:var(--text2); text-transform:uppercase;
+    letter-spacing:.04em; padding-bottom:8px; border-bottom:1px solid var(--border);
+  }
+  .dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .dot.todo { background:var(--orange); }
+  .dot.done { background:var(--green); }
+  .count { margin-left:auto; font-size:11px; color:var(--text3); background:var(--surface2); padding:1px 8px; border-radius:10px; }
+
+  .card {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px;
+    box-shadow:var(--shadow);
+    font-size:14px; line-height:1.5;
+    transition: box-shadow .15s;
+  }
+  .card:hover { box-shadow:0 4px 12px rgba(0,0,0,.06); }
+  .card.done { text-decoration:line-through; color:var(--text3); border-left:2px solid var(--green); }
+  .card.pinned { border-left:2px solid var(--orange); }
+  .card-time { font-size:10px; color:var(--text3); margin-top:6px; }
+  .card-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .card-badge {
+    font-size:10px; padding:2px 6px; border-radius:4px;
+    background:var(--surface2); color:var(--text3); white-space:nowrap;
+  }
+
+  .tag { display:inline-block; font-size:9px; padding:2px 6px; border-radius:3px; background:var(--surface2); color:var(--text3); margin-right:4px; }
+
+  .input-row {
+    display:flex; gap:10px; margin-bottom:24px; max-width:900px;
+  }
+  .input-row input {
+    flex:1; padding:10px 14px; border:1px solid var(--border);
+    border-radius:var(--radius); font-size:14px; outline:none; font-family:var(--font);
+    background:var(--surface); color:var(--text);
+  }
+  .input-row input:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(91,106,240,.1); }
+  .input-row button {
+    padding:10px 20px; background:var(--accent); color:#fff;
+    border:none; border-radius:var(--radius); font-size:14px; cursor:pointer; font-weight:500;
+  }
+
+  .label { position:absolute; top:12px; right:40px; font-size:11px; padding:4px 10px; border-radius:4px; background:var(--surface2); color:var(--text2); }
+</style>
+</head>
+<body>
+  <span class="label">A · 极简工具</span>
+  <h2>看板</h2>
+  <div class="input-row">
+    <input type="text" placeholder="输入新的待办事项">
+    <button>+ 添加</button>
+  </div>
+  <div class="preview">
+    <div class="col">
+      <div class="col-header">
+        <span class="dot todo"></span> 待开始
+        <span class="count">3</span>
+      </div>
+      <div class="card pinned">
+        <div class="card-row"><span>Design tokens 整理</span></div>
+        <div class="card-time">09:30</div>
+      </div>
+      <div class="card">
+        <div class="card-row"><span>暗色模式 CSS 变量迁移</span><span class="card-badge">tech</span></div>
+        <div class="card-time">11:00</div>
+      </div>
+      <div class="card">
+        <div class="card-row"><span>看板拖拽动画优化</span></div>
+        <div class="card-time">14:30</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-header">
+        <span class="dot done"></span> 今天完成
+        <span class="count">2</span>
+      </div>
+      <div class="card done">
+        <div class="card-row"><span>数据结构对齐</span></div>
+        <div class="card-time">10:15</div>
+      </div>
+      <div class="card done">
+        <div class="card-row"><span>API 接口联调</span></div>
+        <div class="card-time">12:00</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

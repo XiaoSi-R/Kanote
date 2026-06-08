@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanote</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/style.css?v=3">
+<link rel="stylesheet" href="/notes/css/notes.css?v=3">
+<style>
+  /* ===== 主 Tab 切换 ===== */
+  .main-tabs {
+    display:flex; position:relative; background:var(--surface2);
+    border-radius:12px; padding:4px;
+  }
+  .main-tabs .slide-bg {
+    position:absolute; top:4px; height:calc(100% - 8px); border-radius:9px;
+    background:var(--surface); box-shadow:0 1px 3px rgba(0,0,0,.06);
+    transition:left .25s cubic-bezier(.4,0,.2,1), width .25s cubic-bezier(.4,0,.2,1);
+    z-index:0;
+  }
+  .main-tab {
+    padding:8px 24px; font-size:13px; font-weight:500;
+    border:none; background:transparent; color:var(--text2); cursor:pointer;
+    position:relative; z-index:1; transition:color .2s; white-space:nowrap;
+    display:flex; align-items:center; gap:6px;
+  }
+  .main-tab.active { color:var(--text); }
+  .main-tab .tab-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+  .main-tab.active .tab-dot.t-dot-board { background:var(--orange); }
+  .main-tab.active .tab-dot.t-dot-notes { background:var(--accent); }
+  .section-hidden { display:none !important; }
+
+  /* notes 模块在待办页面的微调 */
+  #notesSection { padding-top:4px; }
+  #notesSection .search-bar { margin-bottom: 16px; }
+
+  /* 记录批量模式 */
+  #noteList .item { position:relative; }
+  .notes-batch-mode .item { padding-left: 36px; cursor:default; }
+  .notes-batch-mode .item:hover { background: var(--hover); }
+  .note-checkbox {
+    display:none; position:absolute; left:10px; top:50%; transform:translateY(-50%);
+    width:18px; height:18px; border:2px solid var(--border2); border-radius:4px;
+    cursor:pointer; flex-shrink:0;
+  }
+  .notes-batch-mode .note-checkbox { display:block; }
+  .note-checkbox.checked { background:var(--accent); border-color:var(--accent); }
+  .note-checkbox.checked::after {
+    content:''; position:absolute; left:5px; top:2px;
+    width:5px; height:9px; border:solid #fff; border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+
+  /* 记录新建按钮 — FAB 风格 */
+  .fab-inline {
+    margin-left:auto; margin-right:1em; width:34px; height:34px; border-radius:50%; border:none;
+    background:var(--accent); color:#fff; font-size:22px; line-height:34px; text-align:center;
+    cursor:pointer; box-shadow:0 2px 8px rgba(99,102,241,.25);
+    transition:transform 0.15s, box-shadow 0.15s; flex-shrink:0;
+  }
+  .fab-inline:hover { transform:scale(1.08); box-shadow:0 4px 14px rgba(99,102,241,.35); }
+
+  /* 齿轮菜单 */
+  .gear-menu { position:relative; }
+  .header-right .gear-btn {
+    display:flex; align-items:center; justify-content:center;
+    width:34px; height:34px; border:1px solid var(--border);
+    background:var(--surface); cursor:pointer; color:var(--text2);
+    border-radius:8px; padding:0; transition:all .15s;
+  }
+  .header-right .gear-btn:hover { color:var(--text); border-color:var(--border2); background:var(--surface2); }
+  .gear-dropdown {
+    display:none; position:absolute; right:0; top:100%; margin-top:4px;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:10px; box-shadow:0 4px 16px rgba(0,0,0,.08);
+    z-index:160; min-width:150px; padding:4px;
+  }
+  .gear-dropdown.show { display:block; }
+  .gear-dropdown button {
+    display:block; width:100%; padding:8px 12px; border:none;
+    background:transparent; color:var(--text); font-size:13px;
+    text-align:left; cursor:pointer; border-radius:6px;
+  }
+  .gear-dropdown button:hover { background:var(--hover); }
+
+  /* ===== 小窗模式 ===== */
+  body.mini-mode .header { display:none !important; }
+  body.mini-mode #board .column[data-status="done"] { display:none !important; }
+  body.mini-mode #boardSection .top-bar { display:none !important; }
+  body.mini-mode #notesSection { display:none !important; }
+  body.mini-mode #batchBar { display:none !important; }
+  body.mini-mode #notesBatchBar { display:none !important; }
+  body.mini-mode .quick-hint { display:none !important; }
+
+  /* 全高看板 */
+  body.mini-mode #board {
+    padding: 6px 6px; gap: 0; height: 100vh;
+  }
+  body.mini-mode .column[data-status="todo"] {
+    max-width: none; border-radius: 6px; border: none;
+  }
+
+  /* 列标题缩小 */
+  body.mini-mode .column-header { padding: 8px 10px 4px; cursor: pointer; }
+  body.mini-mode .column-dot.todo { width: 7px; height: 7px; }
+  body.mini-mode .column-title { font-size: 11px; }
+  body.mini-mode .column-count { font-size: 10px; padding: 1px 6px; }
+
+  /* 卡片缩小 */
+  body.mini-mode .card { padding: 7px 9px; border-radius: 6px; }
+  body.mini-mode .card-list { padding: 3px 7px 7px; gap: 4px; }
+  body.mini-mode .card-text { font-size: 12px; margin-bottom: 4px; line-height: 1.4; }
+  body.mini-mode .card-time { font-size: 9px; }
+  body.mini-mode .pin-btn,
+  body.mini-mode .card-done-btn,
+  body.mini-mode .undo-btn { width: 18px; height: 18px; font-size: 11px; }
+  body.mini-mode .card-del { width: 17px; height: 17px; font-size: 12px; }
+  body.mini-mode .card.pinned { border-left-width: 2px; }
+  body.mini-mode .edit-input { font-size: 12px !important; padding: 2px 4px !important; }
+
+  /* 底部提示 */
+  .mini-mode-hint {
+    display: none;
+    position: fixed; bottom: 4px; left: 50%; transform: translateX(-50%);
+    font-size: 10px; color: var(--text3); z-index: 10;
+    pointer-events: none; white-space: nowrap;
+  }
+  body.mini-mode .mini-mode-hint { display: block; }
+
+  /* 小窗添加浮层 */
+  .mini-add-overlay {
+    display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3); z-index: 300;
+    align-items: flex-start; justify-content: center;
+  }
+  .mini-add-overlay.show { display: flex; }
+  .mini-add-box {
+    background: var(--surface); border-radius: 12px; padding: 14px 16px;
+    width: 88%; max-width: 310px; box-shadow: 0 12px 40px rgba(0,0,0,.15);
+    border: 1px solid var(--border); margin-top: 12px;
+  }
+  .mini-add-box input {
+    width: 100%; padding: 10px 14px; border: 1px solid var(--border2);
+    border-radius: 8px; font-size: 14px; outline: none;
+    background: var(--surface); color: var(--text); font-family:var(--font);
+  }
+  .mini-add-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,.08); }
+  .mini-add-box .mini-add-hint {
+    font-size: 10px; color: var(--text3); margin-top: 8px; text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部 ===== -->
+<div class="header">
+  <div class="header-left">
+    <div class="main-tabs" id="mainTabs">
+      <div class="slide-bg" id="slideBg"></div>
+      <button class="main-tab active" data-tab="board"><span class="tab-dot t-dot-board"></span>看板</button>
+      <button class="main-tab" data-tab="notes"><span class="tab-dot t-dot-notes"></span>记录</button>
+    </div>
+    <span class="date" id="currentDate"></span>
+  </div>
+  <div class="header-right">
+    <div class="gear-menu">
+      <button class="gear-btn" onclick="event.stopPropagation(); toggleGearMenu()" title="更多">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <div class="gear-dropdown" id="gearDropdown">
+        <div id="gearBoard">
+          <button onclick="exportData(); toggleGearMenu()">导出待办</button>
+          <button onclick="document.getElementById('fileInput').click(); toggleGearMenu()">导入待办</button>
+          <button class="gear-sep"></button>
+          <button onclick="backupBoard(); toggleGearMenu()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:middle"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>导出备份</button>
+          <button onclick="restoreBoardClick(); toggleGearMenu()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:middle"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>导入恢复</button>
+          <button class="gear-sep"></button>
+          <button onclick="toggleBatchMode(); toggleGearMenu()">批量删除</button>
+          <button onclick="clearDoneToday(); toggleGearMenu()">清空今天完成</button>
+        </div>
+        <div id="gearNotes" style="display:none">
+          <button onclick="exportNotes(); toggleGearMenu()">导出记录</button>
+          <button class="gear-sep"></button>
+          <button onclick="backupNotes(); toggleGearMenu()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:middle"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>导出备份</button>
+          <button onclick="restoreNotesClick(); toggleGearMenu()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;vertical-align:middle"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>导入恢复</button>
+          <button class="gear-sep"></button>
+          <button onclick="toggleNotesBatchMode(); toggleGearMenu()">批量删除</button>
+        </div>
+      </div>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" title="切换主题">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+  </div>
+  <input type="file" id="fileInput" accept=".xlsx" onchange="importData(event)">
+  <input type="file" id="restoreBoardInput" accept=".json" onchange="restoreBoard(event)" style="display:none">
+  <input type="file" id="restoreNotesInput" accept=".json" onchange="restoreNotes(event)" style="display:none">
+</div>
+
+<!-- ===== 看板区域 ===== -->
+<div id="boardSection">
+  <div class="top-bar">
+    <input type="text" id="globalInput" placeholder="输入新的待办事项" onkeydown="if(event.key==='Enter') quickAdd()">
+    <button class="add-btn" onclick="quickAdd()">+ 添加</button>
+    <input type="text" class="search-input" id="searchInput" placeholder="搜索..." oninput="renderAll()">
+  </div>
+
+  <div class="board" id="board">
+    <div class="column" data-status="todo">
+      <div class="column-header">
+        <div class="column-dot todo"></div>
+        <span class="column-title">待开始</span>
+        <span class="column-count" id="todoCount">0</span>
+      </div>
+      <div class="card-list" data-status="todo" id="list-todo"></div>
+    </div>
+    <div class="column" data-status="done">
+      <div class="column-header">
+        <div class="column-dot done"></div>
+        <span class="column-title" id="doneTitle">今天完成</span>
+        <span class="column-count" id="doneCount">0</span>
+        <div class="date-nav" style="position:relative">
+          <button onclick="prevDate()" title="前一天">◀</button>
+          <span class="date-label" id="viewDateLabel" onclick="toggleCalendar(event)" title="点击打开日历">今天</span>
+          <button onclick="nextDate()" title="后一天">▶</button>
+          <button onclick="goToday()" title="回到今天" style="font-size:11px">●</button>
+          <div class="calendar-popup" id="calendarPopup"></div>
+        </div>
+      </div>
+      <div class="done-stats-bar" id="doneStatsBar">
+        <span class="trophy" id="doneTrophy">·</span>
+        <span id="doneStatsText"></span>
+      </div>
+      <div class="card-list" data-status="done" id="list-done"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 记录区域 ===== -->
+<div id="notesSection" class="section-hidden">
+  <div class="search-bar">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input class="search-input" id="notesSearchInput" type="text" placeholder="搜索记录...">
+    <kbd>Ctrl+K</kbd>
+  </div>
+
+  <div class="cat-row">
+    <span class="cat active" data-cat="全部"> 全部</span>
+    <span class="cat-add">+</span>
+    <button class="fab-inline" id="addBtn" onclick="App.addNote()" title="新建记录">+</button>
+  </div>
+
+  <div class="list" id="noteList">
+    <div class="empty-hint" style="padding:40px;text-align:center;color:var(--text3);font-size:13px;">暂无记录，点击右下角 + 新建</div>
+  </div>
+
+  <!-- 记录批量操作栏 -->
+  <div class="batch-bar" id="notesBatchBar">
+    <span class="batch-count" id="notesBatchCount">已选 0 项</span>
+    <button class="batch-select-all-btn" onclick="toggleNotesSelectAll()">全选</button>
+    <button class="batch-cancel-btn" onclick="toggleNotesBatchMode()">取消</button>
+    <button class="batch-del-btn" id="notesBatchDelBtn" onclick="notesBatchDelete()" disabled>删除选中</button>
+  </div>
+
+  <div class="quick-hint">
+    点击条目进入全屏编辑 · 复制按钮直接带走 · <kbd>Ctrl+K</kbd> 聚焦搜索
+  </div>
+</div>
+
+<!-- ===== 全屏编辑器（记录） ===== -->
+<div class="editor-shell" id="editorShell" style="display:none;">
+  <div class="editor-inner">
+    <div class="editor-topbar">
+      <button class="back-btn" onclick="Editor.close()">← 返回</button>
+      <span class="title-hint">编辑记录</span>
+      <button class="delete-btn" onclick="Editor.remove()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:3px;vertical-align:middle"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>删除</button>
+      <button class="save-btn" onclick="Editor.save()">保存</button>
+    </div>
+    <div class="editor-body">
+      <input class="editor-title" id="editTitle" placeholder="输入标题…">
+      <select class="editor-cat" id="editCat"></select>
+      <textarea class="editor-textarea" id="editContent" placeholder="粘贴或输入内容…支持多行文本、命令、链接等"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 提示弹窗 ===== -->
+<div class="modal-overlay" id="alertModal">
+  <div class="modal-box">
+    <h3 id="alertTitle"></h3>
+    <p id="alertMsg"></p>
+    <div class="modal-btns">
+      <button class="modal-btn-primary" onclick="resolveAlert()">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 确认弹窗 ===== -->
+<div class="modal-overlay" id="confirmModal">
+  <div class="modal-box">
+    <h3 id="confirmTitle"></h3>
+    <p id="confirmMsg"></p>
+    <div class="modal-btns">
+      <button class="modal-btn-cancel" onclick="resolveConfirm(false)">取消</button>
+      <button class="modal-btn-primary" onclick="resolveConfirm(true)">确定</button>
+    </div>
+  </div>
+</div>
+
+<!-- 底部批量操作栏 -->
+<div class="batch-bar" id="batchBar">
+  <span class="batch-count">已选 0 项</span>
+  <button class="batch-select-all-btn" onclick="toggleSelectAll()">全选</button>
+  <button class="batch-cancel-btn" onclick="toggleBatchMode(); toggleGearMenu()">取消</button>
+  <button class="batch-del-btn" onclick="batchDelete()" disabled>删除选中</button>
+</div>
+
+<!-- JS：看板 -->
+<script src="static/js/api.js"></script>
+<script src="static/js/modal.js"></script>
+<script src="static/js/app.js"></script>
+<script src="static/js/drag.js"></script>
+<script src="static/js/calendar.js"></script>
+<script src="static/js/batch.js"></script>
+
+<!-- JS：记录 -->
+<script src="/notes/js/api.js"></script>
+<script src="/notes/js/editor.js"></script>
+<script src="/notes/js/app.js"></script>
+
+<!-- Tab 切换 -->
+<script>
+// 齿轮菜单开关
+function toggleGearMenu() {
+  document.getElementById('gearDropdown').classList.toggle('show');
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.gear-menu')) {
+    var menu = document.getElementById('gearDropdown');
+    if (menu) menu.classList.remove('show');
+  }
+});
+
+// 滑动滑块定位
+function updateSlideBg(activeTab) {
+  var slideBg = document.getElementById('slideBg');
+  var tabs = document.querySelectorAll('#mainTabs .main-tab');
+  var padding = 4;
+  var left = padding;
+  for (var i = 0; i < tabs.length; i++) {
+    if (tabs[i] === activeTab) break;
+    left += tabs[i].offsetWidth;
+  }
+  slideBg.style.left = left + 'px';
+  slideBg.style.width = activeTab.offsetWidth + 'px';
+}
+// 页面加载时计算初始位置
+setTimeout(function() {
+  var t = document.querySelector('#mainTabs .main-tab.active');
+  if (t) updateSlideBg(t);
+}, 100);
+
+(function() {
+  const boardSection = document.getElementById('boardSection');
+  const notesSection = document.getElementById('notesSection');
+
+  document.getElementById('mainTabs').addEventListener('click', function(e) {
+    const tab = e.target.closest('.main-tab');
+    if (!tab) return;
+    const name = tab.dataset.tab;
+
+    this.querySelectorAll('.main-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    updateSlideBg(tab);
+
+    var gearBoard = document.getElementById('gearBoard');
+    var gearNotes = document.getElementById('gearNotes');
+    if (name === 'board') {
+      boardSection.classList.remove('section-hidden');
+      notesSection.classList.add('section-hidden');
+      if (gearBoard) gearBoard.style.display = '';
+      if (gearNotes) gearNotes.style.display = 'none';
+    } else {
+      boardSection.classList.add('section-hidden');
+      notesSection.classList.remove('section-hidden');
+      if (gearBoard) gearBoard.style.display = 'none';
+      if (gearNotes) gearNotes.style.display = '';
+    }
+  });
+})();
+
+/* ---- 记录批量删除 ---- */
+let notesBatchMode = false;
+let notesSelectedIds = new Set();
+
+function toggleNotesBatchMode() {
+  notesBatchMode = !notesBatchMode;
+  notesSelectedIds.clear();
+  document.body.classList.toggle('notes-batch-mode', notesBatchMode);
+  document.getElementById('notesBatchBar').classList.toggle('show', notesBatchMode);
+  document.querySelectorAll('.note-checkbox.checked').forEach(cb => cb.classList.remove('checked'));
+  updateNotesBatchCount();
+}
+
+function toggleNotesSelectAll() {
+  if (!notesBatchMode) return;
+  var items = document.querySelectorAll('#noteList .item');
+  var allSelected = items.length > 0 && notesSelectedIds.size === items.length;
+  if (allSelected) {
+    notesSelectedIds.clear();
+    items.forEach(function(item) {
+      item.querySelector('.note-checkbox').classList.remove('checked');
+    });
+  } else {
+    items.forEach(function(item) {
+      var id = parseInt(item.dataset.id);
+      if (!isNaN(id)) notesSelectedIds.add(id);
+      item.querySelector('.note-checkbox').classList.add('checked');
+    });
+  }
+  updateNotesBatchCount();
+}
+
+function toggleNoteSelect(id) {
+  if (!notesBatchMode) return;
+  if (notesSelectedIds.has(id)) {
+    notesSelectedIds.delete(id);
+  } else {
+    notesSelectedIds.add(id);
+  }
+  var cb = document.querySelector('#noteList .item[data-id="' + id + '"] .note-checkbox');
+  if (cb) cb.classList.toggle('checked', notesSelectedIds.has(id));
+  updateNotesBatchCount();
+}
+
+function updateNotesBatchCount() {
+  var bar = document.getElementById('notesBatchBar');
+  if (!bar) return;
+  document.getElementById('notesBatchCount').textContent = '已选 ' + notesSelectedIds.size + ' 项';
+  document.getElementById('notesBatchDelBtn').disabled = notesSelectedIds.size === 0;
+  var total = document.querySelectorAll('#noteList .item').length;
+  document.querySelector('#notesBatchBar .batch-select-all-btn').textContent =
+    total > 0 && notesSelectedIds.size === total ? '取消全选' : '全选';
+}
+
+async function notesBatchDelete() {
+  if (notesSelectedIds.size === 0) return;
+  var ok = await showConfirm('批量删除', '确定删除选中的 ' + notesSelectedIds.size + ' 条记录？');
+  if (!ok) return;
+  var ids = Array.from(notesSelectedIds);
+  try {
+    var res = await fetch('/api/notes/batch', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ids: ids })
+    });
+    var data = await res.json();
+    if (data.ok) {
+      notesSelectedIds.clear();
+      toggleNotesBatchMode();
+      App.init();
+      App.toast('已删除 ' + data.deleted + ' 条记录');
+    }
+  } catch(e) {
+    App.toast('删除失败: ' + e.message);
+  }
+}
+
+// 记录批量模式下，点击条目选中
+document.addEventListener('click', function(e) {
+  if (!notesBatchMode) return;
+  var item = e.target.closest('#noteList .item');
+  if (!item) return;
+  var id = parseInt(item.dataset.id);
+  if (isNaN(id)) return;
+  if (e.target.closest('button, .note-checkbox, .expand-btn, .pin-item-btn')) return;
+  e.preventDefault();
+  toggleNoteSelect(id);
+});
+
+/* ---- 小窗模式 ---- */
+var miniMode = false;
+
+function toggleMiniMode() {
+  miniMode = !miniMode;
+  document.body.classList.toggle('mini-mode', miniMode);
+  if (!miniMode) hideMiniAdd();
+  fetch('/api/window/mini', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ mode: miniMode ? 'mini' : 'full' })
+  }).then(r => r.json()).then(d => {
+    if (!d.ok) console.warn('[mini]', d.error);
+  }).catch(e => console.error('[mini] API 失败:', e));
+}
+
+// 双击 header 进入小窗
+document.querySelector('.header').addEventListener('dblclick', function(e) {
+  if (e.target.closest('button, input, .gear-dropdown, .main-tab')) return;
+  if (miniMode) return;
+  toggleMiniMode();
+});
+
+// 双击「待开始」列标题恢复全屏（事件委托到 #board）
+document.getElementById('board').addEventListener('dblclick', function(e) {
+  if (!miniMode) return;
+  if (e.target.closest('.column[data-status="todo"] .column-header')) {
+    e.preventDefault();
+    toggleMiniMode();
+  }
+});
+
+// Esc 退出小窗
+document.addEventListener('keydown', function(e) {
+  if (!miniMode) return;
+  if (e.key === 'Escape') {
+    var overlay = document.getElementById('miniAddOverlay');
+    if (overlay.classList.contains('show')) {
+      hideMiniAdd();
+      return;
+    }
+    toggleMiniMode();
+  }
+});
+
+// Ctrl+N 小窗模式
+document.addEventListener('keydown', function(e) {
+  if (!miniMode) return;
+  if (e.ctrlKey && e.key === 'n') {
+    e.preventDefault();
+    e.stopPropagation();
+    showMiniAdd();
+  }
+}, true);
+
+function showMiniAdd() {
+  document.getElementById('miniAddOverlay').classList.add('show');
+  document.getElementById('miniAddInput').value = '';
+  document.getElementById('miniAddInput').focus();
+}
+
+function hideMiniAdd() {
+  document.getElementById('miniAddOverlay').classList.remove('show');
+}
+
+async function miniQuickAdd() {
+  var text = document.getElementById('miniAddInput').value.trim();
+  if (!text) return;
+  await apiAdd(text);
+  hideMiniAdd();
+  await loadTasks(); renderAll();
+}
+
+document.getElementById('miniAddOverlay').addEventListener('click', function(e) {
+  if (e.target === this) hideMiniAdd();
+});
+
+// ===== 看板备份/恢复 =====
+async function backupBoard() {
+  try {
+    var res = await fetch('/api/tasks/backup', { method: 'POST' });
+    var data = await res.json();
+    if (data.ok) showAlert('备份成功', '已导出 ' + data.count + ' 条记录\n文件：' + data.path);
+    else showAlert('备份失败', data.error || '请重试');
+  } catch(e) { showAlert('备份失败', e.message); }
+}
+
+function restoreBoardClick() {
+  document.getElementById('restoreBoardInput').click();
+}
+
+async function restoreBoard(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  try {
+    var text = await file.text();
+    var data = JSON.parse(text);
+    if (data.type !== 'kanote-board') { showAlert('格式错误', '请选择看板备份文件'); event.target.value = ''; return; }
+    var ok = await showConfirm('恢复确认', '将覆盖当前全部看板数据为备份中的 ' + data.count + ' 条记录，确定吗？');
+    if (!ok) { event.target.value = ''; return; }
+    var res = await fetch('/api/tasks/restore', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    var result = await res.json();
+    if (result.ok) { await loadTasks(); renderAll(); showAlert('恢复成功', '已恢复 ' + result.count + ' 条记录'); }
+    else showAlert('恢复失败', result.error || '请检查文件格式');
+  } catch(e) { showAlert('恢复失败', '文件格式不正确'); }
+  event.target.value = '';
+}
+
+// ===== 记录板备份/恢复 =====
+async function backupNotes() {
+  try {
+    var res = await fetch('/api/notes/backup', { method: 'POST' });
+    var data = await res.json();
+    if (data.ok) showAlert('备份成功', '已导出 ' + data.count + ' 条记录\n文件：' + data.path);
+    else showAlert('备份失败', data.error || '请重试');
+  } catch(e) { showAlert('备份失败', e.message); }
+}
+
+function restoreNotesClick() {
+  document.getElementById('restoreNotesInput').click();
+}
+
+async function restoreNotes(event) {
+  var file = event.target.files[0];
+  if (!file) return;
+  try {
+    var text = await file.text();
+    var data = JSON.parse(text);
+    if (data.type !== 'kanote-notes') { showAlert('格式错误', '请选择记录板备份文件'); event.target.value = ''; return; }
+    var ok = await showConfirm('恢复确认', '将覆盖当前全部记录板数据为备份中的 ' + data.count + ' 条记录，确定吗？');
+    if (!ok) { event.target.value = ''; return; }
+    var res = await fetch('/api/notes/restore', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(data)
+    });
+    var result = await res.json();
+    if (result.ok) { App.refresh(); showAlert('恢复成功', '已恢复 ' + result.count + ' 条记录'); }
+    else showAlert('恢复失败', result.error || '请检查文件格式');
+  } catch(e) { showAlert('恢复失败', '文件格式不正确'); }
+  event.target.value = '';
+}
+
+async function exportNotes() {
+  try {
+    var res = await fetch('/api/notes/export');
+    var data = await res.json();
+    if (data.ok) {
+      showAlert('导出成功', '已导出 ' + data.count + ' 条记录\n文件：' + data.path);
+    } else {
+      showAlert('导出失败', '请重试');
+    }
+  } catch(e) {
+    showAlert('导出失败', e.message);
+  }
+}
+</script>
+
+<!-- 小窗添加浮层 -->
+<div class="mini-add-overlay" id="miniAddOverlay">
+  <div class="mini-add-box">
+    <input type="text" id="miniAddInput" placeholder="输入新的待办事项"
+           onkeydown="if(event.key==='Enter')miniQuickAdd();if(event.key==='Escape')hideMiniAdd()">
+    <div class="mini-add-hint">Enter 确认 · Esc 取消</div>
+  </div>
+</div>
+
+<!-- 小窗模式提示 -->
+<div class="mini-mode-hint">双击「待开始」返回 · Esc 退出 · Ctrl+N 添加</div>
+
+</body>
+</html>

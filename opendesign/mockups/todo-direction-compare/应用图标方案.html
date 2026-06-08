@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanote 应用图标方案</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+    background:#f9fafb; color:#1f2937; padding:40px;
+  }
+  h2 { font-size:14px; font-weight:600; margin-bottom:16px; color:#6b7280; text-transform:uppercase; letter-spacing:.04em; }
+  .section { margin-bottom:48px; }
+  .icon-row { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; }
+
+  .icon-card {
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    cursor:pointer; padding:16px; border-radius:12px; border:2px solid transparent;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .icon-card:hover { border-color:#6366f1; box-shadow:0 4px 16px rgba(99,102,241,.1); }
+  .icon-card.selected { border-color:#6366f1; background:#eef2ff; }
+  .icon-label { font-size:12px; font-weight:600; color:#6b7280; text-align:center; }
+  .icon-sub { font-size:10px; color:#9ca3af; text-align:center; max-width:100px; }
+  .icon-box { border-radius:16px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+
+  /* 选中态 */
+  input[type=radio] { display:none; }
+  input[type=radio]:checked + .icon-card { border-color:#6366f1; background:#eef2ff; box-shadow:0 4px 16px rgba(99,102,241,.15); }
+  input[type=radio]:checked + .icon-card .icon-label { color:#6366f1; }
+
+  .size-row { display:flex; gap:12px; align-items:center; }
+  .sz { font-size:10px; color:#9ca3af; text-align:center; }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <h2>方案 A · 字母 K</h2>
+  <div class="icon-row">
+    <!-- A1: 紫底白K -->
+    <label>
+      <input type="radio" name="icon" value="a1">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#6366f1"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#6366f1"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#6366f1"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+        </div>
+        <span class="icon-label">紫底白 K</span>
+        <span class="icon-sub">简洁品牌直出</span>
+      </div>
+    </label>
+
+    <!-- A2: 白底紫K -->
+    <label>
+      <input type="radio" name="icon" value="a2">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff"/><rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#6366f1" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff"/><rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#6366f1" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#fff"/><rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/><text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#6366f1" font-family="Quicksand,sans-serif">K</text></svg>
+          </div>
+        </div>
+        <span class="icon-label">白底紫 K</span>
+        <span class="icon-sub">偏 macOS 原生感</span>
+      </div>
+    </label>
+
+    <!-- A3: 渐变K -->
+    <label>
+      <input type="radio" name="icon" value="a3">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <defs><linearGradient id="gA3" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gA3)"/>
+              <text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <defs><linearGradient id="gA3s" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gA3s)"/>
+              <text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <defs><linearGradient id="gA3t" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#f97316"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gA3t)"/>
+              <text x="32" y="44" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">紫橙渐变 K</span>
+        <span class="icon-sub">品牌双色融合</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+<div class="section">
+  <h2>方案 B · 看板格子</h2>
+  <div class="icon-row">
+    <!-- B1: 2x2 纯色格 -->
+    <label>
+      <input type="radio" name="icon" value="b1">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="9" y="9" width="21" height="21" rx="5" fill="#f97316"/>
+              <rect x="34" y="9" width="21" height="21" rx="5" fill="#6366f1"/>
+              <rect x="9" y="34" width="21" height="21" rx="5" fill="#e5e7eb"/>
+              <rect x="34" y="34" width="21" height="21" rx="5" fill="#10b981"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="9" y="9" width="21" height="21" rx="5" fill="#f97316"/>
+              <rect x="34" y="9" width="21" height="21" rx="5" fill="#6366f1"/>
+              <rect x="9" y="34" width="21" height="21" rx="5" fill="#e5e7eb"/>
+              <rect x="34" y="34" width="21" height="21" rx="5" fill="#10b981"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="9" y="9" width="21" height="21" rx="5" fill="#f97316"/>
+              <rect x="34" y="9" width="21" height="21" rx="5" fill="#6366f1"/>
+              <rect x="9" y="34" width="21" height="21" rx="5" fill="#e5e7eb"/>
+              <rect x="34" y="34" width="21" height="21" rx="5" fill="#10b981"/>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">四色看板格</span>
+        <span class="icon-sub">直接表达功能</span>
+      </div>
+    </label>
+
+    <!-- B2: 紫底 2x2 彩色格 -->
+    <label>
+      <input type="radio" name="icon" value="b2">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="12" y="12" width="17" height="17" rx="4.5" fill="#f97316" opacity=".95"/>
+              <rect x="35" y="12" width="17" height="17" rx="4.5" fill="#fff" opacity=".9"/>
+              <rect x="12" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".7"/>
+              <rect x="35" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="12" y="12" width="17" height="17" rx="4.5" fill="#f97316" opacity=".95"/>
+              <rect x="35" y="12" width="17" height="17" rx="4.5" fill="#fff" opacity=".9"/>
+              <rect x="12" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".7"/>
+              <rect x="35" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".5"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="12" y="12" width="17" height="17" rx="4.5" fill="#f97316" opacity=".95"/>
+              <rect x="35" y="12" width="17" height="17" rx="4.5" fill="#fff" opacity=".9"/>
+              <rect x="12" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".7"/>
+              <rect x="35" y="35" width="17" height="17" rx="4.5" fill="#fff" opacity=".5"/>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">紫底白格</span>
+        <span class="icon-sub">品牌为主 + 格子</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+<div class="section">
+  <h2>方案 C · K + 格子融合</h2>
+  <div class="icon-row">
+    <!-- C1 -->
+    <label>
+      <input type="radio" name="icon" value="c1">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="8" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.25)"/>
+              <rect x="34" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <rect x="8" y="34" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <text x="42" y="50" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="8" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.25)"/>
+              <rect x="34" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <rect x="8" y="34" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <text x="42" y="50" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="8" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.25)"/>
+              <rect x="34" y="8" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <rect x="8" y="34" width="22" height="22" rx="5" fill="rgba(255,255,255,.15)"/>
+              <text x="42" y="50" text-anchor="middle" font-size="24" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">格 + K 叠合</span>
+        <span class="icon-sub">功能+品牌</span>
+      </div>
+    </label>
+
+    <!-- C2 -->
+    <label>
+      <input type="radio" name="icon" value="c2">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="8" y="8" width="48" height="48" rx="10" fill="#6366f1"/>
+              <rect x="16" y="16" width="13" height="13" rx="3.5" fill="#f97316"/>
+              <rect x="35" y="16" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.9)"/>
+              <rect x="16" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.7)"/>
+              <rect x="35" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.4)"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="8" y="8" width="48" height="48" rx="10" fill="#6366f1"/>
+              <rect x="16" y="16" width="13" height="13" rx="3.5" fill="#f97316"/>
+              <rect x="35" y="16" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.9)"/>
+              <rect x="16" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.7)"/>
+              <rect x="35" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.4)"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#fff"/>
+              <rect x="1" y="1" width="62" height="62" rx="13" fill="none" stroke="#e5e7eb" stroke-width="2"/>
+              <rect x="8" y="8" width="48" height="48" rx="10" fill="#6366f1"/>
+              <rect x="16" y="16" width="13" height="13" rx="3.5" fill="#f97316"/>
+              <rect x="35" y="16" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.9)"/>
+              <rect x="16" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.7)"/>
+              <rect x="35" y="35" width="13" height="13" rx="3.5" fill="rgba(255,255,255,.4)"/>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">白框紫底四格</span>
+        <span class="icon-sub">App Store 风格</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+<div class="section">
+  <h2>方案 D · 勾选卡片</h2>
+  <div class="icon-row">
+    <!-- D1 -->
+    <label>
+      <input type="radio" name="icon" value="d1">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="14" y="18" width="36" height="28" rx="5" fill="#fff" opacity=".95"/>
+              <polyline points="24 32 29 37 40 26" fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="14" y="18" width="36" height="28" rx="5" fill="#fff" opacity=".95"/>
+              <polyline points="24 32 29 37 40 26" fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <rect width="64" height="64" rx="14" fill="#6366f1"/>
+              <rect x="14" y="18" width="36" height="28" rx="5" fill="#fff" opacity=".95"/>
+              <polyline points="24 32 29 37 40 26" fill="none" stroke="#6366f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">紫底白卡 ✓</span>
+        <span class="icon-sub">Todo 完成感</span>
+      </div>
+    </label>
+
+    <!-- D2: 渐变版 -->
+    <label>
+      <input type="radio" name="icon" value="d2">
+      <div class="icon-card">
+        <div class="size-row">
+          <div class="icon-box" style="width:64px;height:64px;">
+            <svg width="64" height="64" viewBox="0 0 64 64">
+              <defs><linearGradient id="gD2" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gD2)"/>
+              <rect x="14" y="16" width="36" height="32" rx="5" fill="#fff" opacity=".95"/>
+              <circle cx="32" cy="32" r="8" fill="none" stroke="#6366f1" stroke-width="3"/>
+              <polyline points="28 32 31 35 36 29" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:32px;height:32px;">
+            <svg width="32" height="32" viewBox="0 0 64 64">
+              <defs><linearGradient id="gD2s" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gD2s)"/>
+              <rect x="14" y="16" width="36" height="32" rx="5" fill="#fff" opacity=".95"/>
+              <circle cx="32" cy="32" r="8" fill="none" stroke="#6366f1" stroke-width="3"/>
+              <polyline points="28 32 31 35 36 29" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="icon-box" style="width:16px;height:16px;">
+            <svg width="16" height="16" viewBox="0 0 64 64">
+              <defs><linearGradient id="gD2t" x1="0" y1="0" x2="64" y2="64"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#a78bfa"/></linearGradient></defs>
+              <rect width="64" height="64" rx="14" fill="url(#gD2t)"/>
+              <rect x="14" y="16" width="36" height="32" rx="5" fill="#fff" opacity=".95"/>
+              <circle cx="32" cy="32" r="8" fill="none" stroke="#6366f1" stroke-width="3"/>
+              <polyline points="28 32 31 35 36 29" fill="none" stroke="#6366f1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <span class="icon-label">渐变紫 ✓ 卡片</span>
+        <span class="icon-sub">Todo 感 + 品牌色</span>
+      </div>
+    </label>
+  </div>
+</div>
+
+<script>
+  // 点击选中
+  document.querySelectorAll('input[type=radio]').forEach(r => {
+    r.addEventListener('change', function() {
+      document.querySelectorAll('.icon-card').forEach(c => c.classList.remove('selected'));
+      if (this.checked) this.nextElementSibling.classList.add('selected');
+    });
+  });
+</script>
+
+</body>
+</html>

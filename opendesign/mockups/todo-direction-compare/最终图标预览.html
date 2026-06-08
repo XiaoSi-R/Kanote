@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>最终图标预览</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'PingFang SC','Microsoft YaHei',sans-serif; background:#1a1d27; color:#fff; padding:40px; }
+  h2 { font-size:14px; font-weight:600; margin-bottom:6px; }
+  .sub { font-size:11px; color:#6b7180; margin-bottom:20px; }
+  .row { display:flex; gap:24px; flex-wrap:wrap; align-items:flex-start; margin-bottom:40px; }
+
+  .card { text-align:center; }
+  .card img { border-radius:16px; box-shadow:0 4px 20px rgba(0,0,0,.3); display:block; }
+  .label { font-size:11px; margin-top:8px; color:#9da3b0; }
+
+  .bg-preview { display:flex; gap:24px; flex-wrap:wrap; }
+  .bg-box { width:120px; height:120px; border-radius:16px; display:flex; align-items:center; justify-content:center; }
+  .bg-box img { border-radius:16px; }
+
+  .check { width:20px; height:20px; border-radius:50%; margin:0 2px; display:inline-block; }
+  .check.w { background:#fff; border:1px solid #e5e7eb; }
+  .check.b { background:#1a1d27; border:1px solid #363b4a; }
+</style>
+</head>
+<body>
+
+<h2>最终图标 · K 变体 竖线 + ✓</h2>
+<div class="sub">由 icon.svg 通过 sharp/librsvg 渲染，和浏览器完全一致</div>
+
+<div class="row">
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="256" height="256" alt="icon 256">
+    <div class="label">256 × 256</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="128" height="128" alt="icon 128">
+    <div class="label">128 × 128</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="64" height="64" alt="icon 64">
+    <div class="label">64 × 64</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="48" height="48" alt="icon 48">
+    <div class="label">48 × 48</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="32" height="32" alt="icon 32">
+    <div class="label">32 × 32</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="24" height="24" alt="icon 24">
+    <div class="label">24 × 24</div>
+  </div>
+  <div class="card">
+    <img src="/opendesign/kanote.png" width="16" height="16" alt="icon 16">
+    <div class="label">16 × 16</div>
+  </div>
+</div>
+
+<h2>不同背景下的透明效果</h2>
+<div class="sub">圆角外侧应该和各自背景融合，不会出现白边</div>
+<div class="bg-preview">
+  <div class="card">
+    <div class="bg-box" style="background:#f9fafb;">
+      <img src="/opendesign/kanote.png" width="80" height="80">
+    </div>
+    <div class="label">浅灰背景</div>
+  </div>
+  <div class="card">
+    <div class="bg-box" style="background:#1a1d27;">
+      <img src="/opendesign/kanote.png" width="80" height="80">
+    </div>
+    <div class="label">深色背景</div>
+  </div>
+  <div class="card">
+    <div class="bg-box" style="background:#6366f1;">
+      <img src="/opendesign/kanote.png" width="80" height="80">
+    </div>
+    <div class="label">紫色背景</div>
+  </div>
+  <div class="card">
+    <div class="bg-box" style="background:linear-gradient(135deg,#f97316,#6366f1);">
+      <img src="/opendesign/kanote.png" width="80" height="80">
+    </div>
+    <div class="label">紫橙渐变</div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>D · 活泼轻快</title>
+<style>
+  :root {
+    --bg: #fff;
+    --surface: #fff;
+    --surface2: #f4f0ff;
+    --border: #eae5f5;
+    --text: #2d2640;
+    --text2: #6b5f80;
+    --text3: #b0a5c4;
+    --accent: #7c5cfc;
+    --green: #44d7b6;
+    --orange: #ff8c5a;
+    --pink: #ff6b9d;
+    --radius: 18px;
+    --font: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+    background:var(--bg); color:var(--text); padding:32px 40px;
+    background-image:
+      radial-gradient(circle at 90% 10%, rgba(124,92,252,.05) 0%, transparent 40%),
+      radial-gradient(circle at 10% 90%, rgba(255,107,157,.04) 0%, transparent 40%);
+  }
+  h2 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:20px; letter-spacing:-.01em; }
+
+  .preview { display:flex; gap:20px; max-width:900px; }
+  .col { flex:1; display:flex; flex-direction:column; gap:12px; }
+  .col-header {
+    display:flex; align-items:center; gap:10px;
+    font-size:13px; font-weight:700; color:var(--text);
+    padding:10px 14px; background:var(--surface2); border-radius:12px;
+  }
+  .dot { width:10px; height:10px; border-radius:6px; flex-shrink:0; }
+  .dot.todo { background:var(--orange); box-shadow:0 0 0 4px rgba(255,140,90,.15); }
+  .dot.done { background:var(--green); box-shadow:0 0 0 4px rgba(68,215,182,.15); }
+  .count {
+    margin-left:auto; font-size:12px; font-weight:700; color:var(--accent);
+    background:#fff; padding:3px 10px; border-radius:10px; box-shadow:0 1px 4px rgba(0,0,0,.04);
+  }
+
+  .card {
+    background:var(--surface); border:1.5px solid var(--border);
+    border-radius:var(--radius); padding:16px 18px;
+    box-shadow:0 2px 0 rgba(0,0,0,.02);
+    font-size:14px; line-height:1.5;
+    transition: box-shadow .2s, border-color .2s;
+    position:relative; overflow:hidden;
+  }
+  .card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  }
+  .card.pinned::before { background:linear-gradient(90deg,var(--orange),var(--pink)); }
+  .card:hover { border-color:var(--accent); box-shadow:0 4px 16px rgba(124,92,252,.08); }
+  .card.done { opacity:.55; }
+  .card.done .card-title { text-decoration:line-through; }
+  .card.done::before { background:linear-gradient(90deg,var(--green),#a0e7d0); }
+  .card-title { font-size:14px; font-weight:600; }
+  .card-time { font-size:10px; color:var(--text3); margin-top:8px; font-weight:600; }
+  .card-row { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; }
+  .card-badge {
+    font-size:10px; padding:3px 8px; border-radius:8px;
+    background:linear-gradient(135deg,var(--surface2),#ece5ff);
+    color:var(--accent); white-space:nowrap; font-weight:700;
+  }
+
+  .input-row {
+    display:flex; gap:10px; margin-bottom:24px; max-width:900px;
+  }
+  .input-row input {
+    flex:1; padding:14px 20px; border:2px solid var(--border);
+    border-radius:var(--radius); font-size:14px; outline:none;
+    background:var(--surface); color:var(--text); font-weight:500;
+    transition:border-color .15s;
+  }
+  .input-row input:focus { border-color:var(--accent); box-shadow:0 0 0 4px rgba(124,92,252,.06); }
+  .input-row button {
+    padding:14px 28px; background:var(--accent); color:#fff;
+    border:none; border-radius:var(--radius); font-size:14px; cursor:pointer;
+    font-weight:700; box-shadow:0 4px 12px rgba(124,92,252,.25);
+    transition:box-shadow .15s, transform .15s;
+  }
+  .input-row button:hover { box-shadow:0 6px 20px rgba(124,92,252,.35); transform:translateY(-2px); }
+
+  .label { position:absolute; top:12px; right:40px; font-size:11px; padding:4px 10px; border-radius:20px; background:var(--surface2); color:var(--text2); font-weight:700; }
+</style>
+</head>
+<body>
+  <span class="label">D · 活泼轻快</span>
+  <h2>✨ 看板</h2>
+  <div class="input-row">
+    <input type="text" placeholder="有什么新想法？">
+    <button>+ 添加</button>
+  </div>
+  <div class="preview">
+    <div class="col">
+      <div class="col-header">
+        <span class="dot todo"></span> 待开始
+        <span class="count">3</span>
+      </div>
+      <div class="card pinned">
+        <div class="card-row"><span class="card-title">Design tokens 整理</span></div>
+        <div class="card-time">🕘 上午 9:30</div>
+      </div>
+      <div class="card">
+        <div class="card-row"><span class="card-title">暗色模式 CSS 变量迁移</span><span class="card-badge">#tech</span></div>
+        <div class="card-time">🕚 上午 11:00</div>
+      </div>
+      <div class="card">
+        <div class="card-row"><span class="card-title">看板拖拽动画优化</span></div>
+        <div class="card-time">🕝 下午 2:30</div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="col-header">
+        <span class="dot done"></span> 已完成
+        <span class="count">2</span>
+      </div>
+      <div class="card done">
+        <div class="card-row"><span class="card-title">数据结构对齐</span></div>
+        <div class="card-time">完成于 10:15</div>
+      </div>
+      <div class="card done">
+        <div class="card-row"><span class="card-title">API 接口联调</span></div>
+        <div class="card-time">完成于 12:00</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

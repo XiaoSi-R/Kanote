@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>图标细化 · A1 + B2 融合</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+    background:#f9fafb; color:#1f2937; padding:40px;
+  }
+  h2 { font-size:13px; font-weight:600; margin-bottom:4px; }
+  .sub { font-size:11px; color:#9ca3af; margin-bottom:16px; }
+  .section { margin-bottom:40px; }
+  .icon-row { display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; }
+  .icon-card {
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    padding:14px; border-radius:12px; border:2px solid transparent;
+    cursor:pointer; transition:all .15s;
+    min-width:120px;
+  }
+  .icon-card:hover { border-color:#6366f1; box-shadow:0 4px 16px rgba(99,102,241,.1); }
+  .icon-label { font-size:12px; font-weight:600; color:#1f2937; }
+  .icon-sub { font-size:10px; color:#9ca3af; text-align:center; max-width:110px; }
+  .icon-box { border-radius:16px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.08); }
+  .sizes { display:flex; gap:8px; align-items:center; }
+</style>
+</head>
+<body>
+
+<div class="section">
+  <h2>融合 1 · K 字母 + 右上角橙色格</h2>
+  <div class="sub">A1 为主体，右上一小块橙色方块暗示看板</div>
+  <div class="icon-row">
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="37" y="10" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="30" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="37" y="10" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="30" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="37" y="10" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="30" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">K + 右上角橙格</span>
+      <span class="icon-sub">K 为主，橙格点缀</span>
+    </div>
+
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="11" y="11" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="34" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="11" y="11" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="34" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="11" y="11" width="17" height="17" rx="4.5" fill="#f97316"/>
+            <text x="34" y="44" text-anchor="middle" font-size="34" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">K + 左上角橙格</span>
+      <span class="icon-sub">橙格在左更稳重</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>融合 2 · 四格 + K 叠印</h2>
+  <div class="sub">B2 四格为主体，K 字母浮在右下角</div>
+  <div class="icon-row">
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="10" y="10" width="18" height="18" rx="4.5" fill="#f97316" opacity=".95"/>
+            <rect x="36" y="10" width="18" height="18" rx="4.5" fill="#fff" opacity=".9"/>
+            <rect x="10" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".7"/>
+            <rect x="36" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="10" y="10" width="18" height="18" rx="4.5" fill="#f97316" opacity=".95"/>
+            <rect x="36" y="10" width="18" height="18" rx="4.5" fill="#fff" opacity=".9"/>
+            <rect x="10" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".7"/>
+            <rect x="36" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".4"/>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="10" y="10" width="18" height="18" rx="4.5" fill="#f97316" opacity=".95"/>
+            <rect x="36" y="10" width="18" height="18" rx="4.5" fill="#fff" opacity=".9"/>
+            <rect x="10" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".7"/>
+            <rect x="36" y="36" width="18" height="18" rx="4.5" fill="#fff" opacity=".4"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">四格渐变层次</span>
+      <span class="icon-sub">橙+白三层透明度</span>
+    </div>
+
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="8" y="8" width="21" height="21" rx="5" fill="#f97316"/>
+            <rect x="35" y="8" width="21" height="21" rx="5" fill="rgba(255,255,255,.85)"/>
+            <rect x="8" y="35" width="21" height="21" rx="5" fill="rgba(255,255,255,.6)"/>
+            <rect x="35" y="35" width="21" height="21" rx="5" fill="#10b981" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="8" y="8" width="21" height="21" rx="5" fill="#f97316"/>
+            <rect x="35" y="8" width="21" height="21" rx="5" fill="rgba(255,255,255,.85)"/>
+            <rect x="8" y="35" width="21" height="21" rx="5" fill="rgba(255,255,255,.6)"/>
+            <rect x="35" y="35" width="21" height="21" rx="5" fill="#10b981" opacity=".8"/>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="8" y="8" width="21" height="21" rx="5" fill="#f97316"/>
+            <rect x="35" y="8" width="21" height="21" rx="5" fill="rgba(255,255,255,.85)"/>
+            <rect x="8" y="35" width="21" height="21" rx="5" fill="rgba(255,255,255,.6)"/>
+            <rect x="35" y="35" width="21" height="21" rx="5" fill="#10b981" opacity=".8"/>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">四格 橙+绿</span>
+      <span class="icon-sub">橙=待办 绿=完成</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>融合 3 · K 为主体，四小格做底纹</h2>
+  <div class="sub">K 在前层，四个淡色小格在背后若隐若现</div>
+  <div class="icon-row">
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="9" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.12)"/>
+            <rect x="34" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="9" y="34" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="34" y="34" width="21" height="21" rx="5" fill="#f97316" opacity=".3"/>
+            <text x="32" y="44" text-anchor="middle" font-size="32" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="9" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.12)"/>
+            <rect x="34" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="9" y="34" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="34" y="34" width="21" height="21" rx="5" fill="#f97316" opacity=".3"/>
+            <text x="32" y="44" text-anchor="middle" font-size="32" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="9" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.12)"/>
+            <rect x="34" y="9" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="9" y="34" width="21" height="21" rx="5" fill="rgba(255,255,255,.08)"/>
+            <rect x="34" y="34" width="21" height="21" rx="5" fill="#f97316" opacity=".3"/>
+            <text x="32" y="44" text-anchor="middle" font-size="32" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">K + 淡格底纹</span>
+      <span class="icon-sub">K 突出，格子若隐</span>
+    </div>
+
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="7" y="7" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="7" width="23" height="23" rx="5.5" fill="#f97316" opacity=".25"/>
+            <rect x="7" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.06)"/>
+            <text x="32" y="45" text-anchor="middle" font-size="30" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="7" y="7" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="7" width="23" height="23" rx="5.5" fill="#f97316" opacity=".25"/>
+            <rect x="7" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.06)"/>
+            <text x="32" y="45" text-anchor="middle" font-size="30" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <rect x="7" y="7" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="7" width="23" height="23" rx="5.5" fill="#f97316" opacity=".25"/>
+            <rect x="7" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.1)"/>
+            <rect x="34" y="34" width="23" height="23" rx="5.5" fill="rgba(255,255,255,.06)"/>
+            <text x="32" y="45" text-anchor="middle" font-size="30" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">K + 浅格底纹 v2</span>
+      <span class="icon-sub">右上橙格稍深</span>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h2>纯 A1 细化 · K 字母变体</h2>
+  <div class="sub">不同圆角、不同 K 粗细、不同大小</div>
+  <div class="icon-row">
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <text x="32" y="45" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <text x="32" y="45" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="15" fill="#6366f1"/>
+            <text x="32" y="45" text-anchor="middle" font-size="36" font-weight="700" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">圆角 15 · 粗体 K</span>
+      <span class="icon-sub">圆润亲和</span>
+    </div>
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="10" fill="#6366f1"/>
+            <text x="32" y="46" text-anchor="middle" font-size="38" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="10" fill="#6366f1"/>
+            <text x="32" y="46" text-anchor="middle" font-size="38" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="10" fill="#6366f1"/>
+            <text x="32" y="46" text-anchor="middle" font-size="38" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">圆角 10 · 大号 K</span>
+      <span class="icon-sub">更锐利专业</span>
+    </div>
+    <div class="icon-card">
+      <div class="sizes">
+        <div class="icon-box" style="width:64px;height:64px;">
+          <svg width="64" height="64" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="18" fill="#6366f1"/>
+            <text x="32" y="43" text-anchor="middle" font-size="32" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:32px;height:32px;">
+          <svg width="32" height="32" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="18" fill="#6366f1"/>
+            <text x="32" y="43" text-anchor="middle" font-size="32" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+        <div class="icon-box" style="width:16px;height:16px;">
+          <svg width="16" height="16" viewBox="0 0 64 64">
+            <rect width="64" height="64" rx="18" fill="#6366f1"/>
+            <text x="32" y="43" text-anchor="middle" font-size="32" font-weight="600" fill="#fff" font-family="Quicksand,sans-serif">K</text>
+          </svg>
+        </div>
+      </div>
+      <span class="icon-label">超圆角 18 · 小 K</span>
+      <span class="icon-sub">iOS 原生感</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 打包产物
+build/
+dist/
+*.spec
+
+# 本地数据（含用户隐私）
+data/
+backup/
+
+# Python 嵌入式运行时
+python/
+
+# node_modules（图标生成工具用）
+opendesign/node_modules/
+
+# IDE
+.vscode/
+.idea/
+
+# AI
+.claude/

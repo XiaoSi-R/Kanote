@@ -1,0 +1,5 @@
+flask>=2.0
+pywebview>=4.0
+pystray>=0.19
+Pillow>=9.0
+openpyxl>=3.0
